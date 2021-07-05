@@ -1,0 +1,30 @@
+﻿@model IEnumerable<App.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Orders</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @if (User.IsInRole("admin") && User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-info" style="margin-left: 5px; margin-right: 5px;" asp-action="Edit" asp-route-id="@item.OrderID">Edit</a>
+                    <a class="btn btn-info" style="margin-left: 5px; margin-right: 5px;" asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
+                }
+                <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
